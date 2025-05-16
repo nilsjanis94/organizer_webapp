@@ -1,0 +1,89 @@
+# Django Backend
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Angular Frontend
+/frontend/node_modules
+/frontend/.angular
+/frontend/dist
+/frontend/tmp
+/frontend/.pnp
+/frontend/.pnp.js
+
+# Abhängigkeitsprotokolle
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/package-lock.json
+/frontend/yarn.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Sicherung von Dateien beim Bearbeiten
+*~
+# Temporäre Dateien
+.netrwhist
+
+# Tests
+/frontend/coverage
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Lokale Konfigurationen
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
