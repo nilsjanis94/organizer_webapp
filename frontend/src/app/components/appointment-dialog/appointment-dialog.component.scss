@@ -1,0 +1,21 @@
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.half-width {
+  width: 48%;
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+mat-dialog-content {
+  min-width: 500px;
+  max-height: 80vh;
+  margin-bottom: 20px;
+}

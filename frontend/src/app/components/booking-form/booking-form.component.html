@@ -1,0 +1,50 @@
+<mat-card class="booking-form-card">
+  <mat-card-header>
+    <mat-card-title>Termin buchen</mat-card-title>
+    <mat-card-subtitle *ngIf="appointment">
+      {{appointment.title}} am {{appointment.date | date:'dd.MM.yyyy'}} um {{appointment.start_time}} Uhr
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Allgemeine Fehlermeldung -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="patient_name" placeholder="Vollständiger Name">
+        <mat-error *ngIf="formControls['patient_name'].errors">
+          <span *ngIf="formControls['patient_name'].errors['required']">Name ist erforderlich</span>
+          <span *ngIf="formControls['patient_name'].errors['minlength']">Name muss mindestens 3 Zeichen haben</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>E-Mail</mat-label>
+        <input matInput formControlName="patient_email" placeholder="E-Mail-Adresse" type="email">
+        <mat-error *ngIf="formControls['patient_email'].errors">
+          <span *ngIf="formControls['patient_email'].errors['required']">E-Mail ist erforderlich</span>
+          <span *ngIf="formControls['patient_email'].errors['email'] || formControls['patient_email'].errors['pattern']">Ungültige E-Mail-Adresse</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Telefonnummer</mat-label>
+        <input matInput formControlName="patient_phone" placeholder="Telefonnummer">
+        <mat-hint>Nur Ziffern, mindestens 6 Ziffern</mat-hint>
+        <mat-error *ngIf="formControls['patient_phone'].errors">
+          <span *ngIf="formControls['patient_phone'].errors['required']">Telefonnummer ist erforderlich</span>
+          <span *ngIf="formControls['patient_phone'].errors['pattern']">Ungültige Telefonnummer</span>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-row">
+        <button mat-button type="button" (click)="onCancel()">Abbrechen</button>
+        <button mat-raised-button color="primary" type="submit">Termin buchen</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

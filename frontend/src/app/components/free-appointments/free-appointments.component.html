@@ -1,0 +1,50 @@
+<div class="free-appointments-container">
+  <div class="header">
+    <h2>Verfügbare Termine</h2>
+    <button mat-raised-button color="primary" (click)="viewCalendar()">Kalender anzeigen</button>
+  </div>
+  
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Termine werden geladen...</p>
+  </div>
+  
+  <div *ngIf="!isLoading && freeAppointments.length === 0" class="no-appointments">
+    <p>Keine freien Termine verfügbar.</p>
+  </div>
+  
+  <div *ngIf="!showBookingForm" class="appointments-list">
+    <mat-card *ngFor="let appointment of freeAppointments" class="appointment-card">
+      <mat-card-header>
+        <mat-card-title>{{ appointment.title }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ appointment.date | date:'dd.MM.yyyy' }} | 
+          {{ formatTime(appointment.start_time) }} - {{ calculateEndTime(appointment.start_time, appointment.duration) }} Uhr
+        </mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <p *ngIf="appointment.description">{{ appointment.description }}</p>
+        <p><strong>Dauer:</strong> {{ appointment.duration }} Minuten</p>
+      </mat-card-content>
+      
+      <mat-divider></mat-divider>
+      
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="selectAppointment(appointment)">Termin buchen</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <div *ngIf="showBookingForm" class="booking-form-wrapper">
+    <app-booking-form 
+      [appointment]="selectedAppointment" 
+      (bookAppointment)="handleBooking($event)"
+      (cancel)="cancelBooking()">
+    </app-booking-form>
+    
+    <div class="back-button">
+      <button mat-button (click)="cancelBooking()">Zurück zur Terminauswahl</button>
+    </div>
+  </div>
+</div>

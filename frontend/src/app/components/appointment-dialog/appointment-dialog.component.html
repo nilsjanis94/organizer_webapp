@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="appointmentForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titel</mat-label>
+      <input matInput formControlName="title" placeholder="Titel des Termins">
+      <mat-error *ngIf="appointmentForm.get('title')?.hasError('required')">
+        Titel ist erforderlich
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput formControlName="description" placeholder="Beschreibung des Termins"></textarea>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Datum</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="appointmentForm.get('date')?.hasError('required')">
+          Datum ist erforderlich
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Uhrzeit</mat-label>
+        <input matInput formControlName="start_time" placeholder="HH:MM" type="time">
+        <mat-error *ngIf="appointmentForm.get('start_time')?.hasError('required')">
+          Uhrzeit ist erforderlich
+        </mat-error>
+        <mat-error *ngIf="appointmentForm.get('start_time')?.hasError('pattern')">
+          Ungültiges Format. Bitte verwenden Sie HH:MM.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Dauer (Minuten)</mat-label>
+        <input matInput formControlName="duration" type="number" min="15" max="240" step="15">
+        <mat-error *ngIf="appointmentForm.get('duration')?.hasError('required')">
+          Dauer ist erforderlich
+        </mat-error>
+        <mat-error *ngIf="appointmentForm.get('duration')?.hasError('min')">
+          Dauer muss mindestens 15 Minuten betragen
+        </mat-error>
+        <mat-error *ngIf="appointmentForm.get('duration')?.hasError('max')">
+          Dauer darf maximal 240 Minuten betragen
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="free">Frei</mat-option>
+          <mat-option value="booked">Gebucht</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Abbrechen</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="isEditMode">Speichern</button>
+</mat-dialog-actions>

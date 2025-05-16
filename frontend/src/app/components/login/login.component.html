@@ -1,0 +1,50 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Termin-Organizer</mat-card-title>
+      <mat-card-subtitle>Bitte melden Sie sich an</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Benutzername</mat-label>
+          <input matInput formControlName="username" placeholder="Benutzername" autocomplete="username">
+          <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+            Benutzername ist erforderlich
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Passwort</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" 
+                 placeholder="Passwort" autocomplete="current-password">
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            Passwort ist erforderlich
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">
+            Passwort muss mindestens 4 Zeichen lang sein
+          </mat-error>
+        </mat-form-field>
+        
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading">
+            <span *ngIf="loading">Wird angemeldet...</span>
+            <span *ngIf="!loading">Anmelden</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+    
+    <mat-card-footer class="login-footer">
+      <div class="login-info">
+        <h4>Demo-Zugänge:</h4>
+        <p><strong>Admin:</strong> admin / admin123</p>
+        <p><strong>Patient:</strong> patient1 / patient123</p>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

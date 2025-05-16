@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Termin buchen</h2>
+<form [formGroup]="buchungsForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="patient_name" required>
+      <mat-error *ngIf="buchungsForm.get('patient_name')?.hasError('required')">
+        Name ist erforderlich
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>E-Mail</mat-label>
+      <input matInput formControlName="patient_email" type="email" required>
+      <mat-error *ngIf="buchungsForm.get('patient_email')?.hasError('required')">
+        E-Mail ist erforderlich
+      </mat-error>
+      <mat-error *ngIf="buchungsForm.get('patient_email')?.hasError('email')">
+        Bitte eine gültige E-Mail-Adresse eingeben
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Telefonnummer</mat-label>
+      <input matInput formControlName="patient_telefon">
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Anliegen / Beschwerden</mat-label>
+      <textarea matInput formControlName="beschreibung" rows="3"></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Abbrechen</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="buchungsForm.invalid">
+      Termin buchen
+    </button>
+  </mat-dialog-actions>
+</form>

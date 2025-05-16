@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ mode === 'create' ? 'Neuen Termin erstellen' : 'Termin bearbeiten' }}</h2>
+<form [formGroup]="terminForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Titel</mat-label>
+      <input matInput formControlName="titel" required>
+      <mat-error *ngIf="terminForm.get('titel')?.invalid">Titel ist erforderlich</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput formControlName="beschreibung" rows="3"></textarea>
+    </mat-form-field>
+    
+    <div class="form-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Datum</mat-label>
+        <input matInput formControlName="datum" type="date" required>
+        <mat-error *ngIf="terminForm.get('datum')?.invalid">Datum ist erforderlich</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Uhrzeit</mat-label>
+        <input matInput formControlName="uhrzeit" type="time" required>
+        <mat-error *ngIf="terminForm.get('uhrzeit')?.invalid">Uhrzeit ist erforderlich</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Dauer (Minuten)</mat-label>
+      <input matInput formControlName="dauer_minuten" type="number" min="15" step="5" required>
+      <mat-error *ngIf="terminForm.get('dauer_minuten')?.invalid">Dauer muss mindestens 15 Minuten sein</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Abbrechen</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="terminForm.invalid">Speichern</button>
+  </mat-dialog-actions>
+</form>

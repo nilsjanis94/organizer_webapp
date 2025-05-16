@@ -1,0 +1,16 @@
+<div class="kalender-container">
+  <div class="kalender-header">
+    <h2>Terminkalender</h2>
+    <p>Wählen Sie ein Datum, um einen neuen Termin zu erstellen oder klicken Sie auf einen freien Termin, um ihn zu buchen.</p>
+  </div>
+  
+  <!-- Fallback, falls der Kalender Probleme verursacht -->
+  <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
+    <h3>Kalender wird geladen...</h3>
+    <p>Falls der Kalender nicht erscheint, prüfen Sie die Browserkonsole auf Fehler.</p>
+  </div>
+  
+  <div class="kalender">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+</div>

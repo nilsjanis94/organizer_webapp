@@ -1,0 +1,90 @@
+.free-appointments-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  h2 {
+    color: #2c3e50;
+    margin: 0;
+  }
+}
+
+.appointments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.appointment-card {
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  mat-card-header {
+    margin-bottom: 1rem;
+  }
+  
+  mat-card-content {
+    margin-bottom: 1rem;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  
+  p {
+    margin-top: 1rem;
+    color: #666;
+  }
+}
+
+.no-appointments {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  
+  p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.booking-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.back-button {
+  text-align: center;
+  margin-top: 1rem;
+}

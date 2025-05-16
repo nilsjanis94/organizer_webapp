@@ -1,0 +1,70 @@
+.calendar-container {
+  height: 80vh;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+}
+
+.calendar-header {
+  margin-bottom: 20px;
+  text-align: center;
+  
+  h2 {
+    color: #2c3e50;
+    margin: 0;
+  }
+}
+
+.calendar-wrapper {
+  height: calc(100% - 60px);
+}
+
+.booking-form-wrapper {
+  padding: 20px 0;
+}
+
+.back-to-calendar {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+::ng-deep {
+  .fc-toolbar-title {
+    font-size: 1.5em !important;
+  }
+
+  .fc-event {
+    cursor: pointer;
+  }
+
+  .fc-day-today {
+    background-color: rgba(200, 220, 240, 0.3) !important;
+  }
+}

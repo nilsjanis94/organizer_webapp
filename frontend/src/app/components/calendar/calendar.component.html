@@ -1,0 +1,95 @@
+<div class="calendar-container">
+  <div *ngIf="isLoading()" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <button mat-raised-button color="warn" 
+            style="margin-top: 20px;" 
+            (click)="stopLoading()">
+      Laden abbrechen
+    </button>
+  </div>
+
+  <div class="calendar-header">
+    <h2>Terminkalender</h2>
+    
+    <div class="calendar-actions">
+      <!-- Button zum Erstellen neuer Termine (nur für Admins sichtbar) -->
+      <button *ngIf="authService.checkIsAdmin()" 
+              mat-raised-button 
+              color="accent" 
+              (click)="createNewAppointment(); $event.stopPropagation();">
+        <mat-icon>add</mat-icon> Neuen Termin erstellen
+      </button>
+    </div>
+  </div>
+  
+  <div class="simple-calendar">
+    <div class="calendar-toolbar">
+      <button mat-button (click)="previousMonth()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <h3>{{ currentMonthYear() }}</h3>
+      <button mat-button (click)="nextMonth()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+    
+    <div class="calendar-grid">
+      <div class="calendar-weekdays">
+        <div class="weekday">Mo</div>
+        <div class="weekday">Di</div>
+        <div class="weekday">Mi</div>
+        <div class="weekday">Do</div>
+        <div class="weekday">Fr</div>
+        <div class="weekday">Sa</div>
+        <div class="weekday">So</div>
+      </div>
+      
+      <div class="calendar-days">
+        <div *ngFor="let day of calendarDays()" 
+             class="day" 
+             [class.current-month]="day.isCurrentMonth"
+             [class.has-events]="day.events.length > 0"
+             (click)="selectDay(day)">
+          <div class="day-number">{{ day.day }}</div>
+          <div *ngIf="day.events.length > 0" class="event-indicator">
+            {{ day.events.length }} Termine
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="selectedDayEvents().length > 0" class="events-list">
+    <h3>Termine am {{ selectedDayFormatted() }}</h3>
+    <div class="event-cards">
+      <mat-card *ngFor="let event of selectedDayEvents()" class="event-card">
+        <mat-card-header>
+          <mat-card-title>{{ event.title }}</mat-card-title>
+          <mat-card-subtitle>{{ event.start_time }} - {{ calculateEndTime(event) }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ event.description }}</p>
+          <p><strong>Status:</strong> {{ event.status === 'free' ? 'Frei' : 'Gebucht' }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="handleEventClick(event)">Details</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  
+  <!-- Formular für die Buchung anzeigen -->
+  <div class="booking-form-wrapper" *ngIf="showBookingForm()">
+    <app-booking-form 
+      [appointment]="selectedAppointment()" 
+      (bookAppointment)="handleBooking($event)"
+      (cancel)="hideBookingForm()">
+    </app-booking-form>
+    
+    <div class="back-to-calendar">
+      <button mat-button (click)="hideBookingForm()">
+        Zurück zum Kalender
+      </button>
+    </div>
+  </div>
+</div>
